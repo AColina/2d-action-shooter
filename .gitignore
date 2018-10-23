@@ -2,6 +2,7 @@ target/
 .settings/
 .classpath
 .project
+.idea/
 
 # Unity Generated
 /2d-action-shooter/[Ll]ibrary/
@@ -30,7 +31,7 @@ ExportedObj/
 *.booproj
 *.svd
 *.pdb
-
+*.iml
 
 # Unity3D generated meta files
 *.pidb.meta
