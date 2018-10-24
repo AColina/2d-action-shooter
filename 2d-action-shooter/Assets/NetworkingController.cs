@@ -29,6 +29,8 @@ public class NetworkingController {
 	private WebSocket _websocket;
 	private Dictionary<String, HashSet<EventHandler<MessageEventArgs>>> onMessageFunctions = new Dictionary<String, HashSet<EventHandler<MessageEventArgs>>>();
 
+	public string playerName { get; private set; }
+	
 	public NetworkingController() {
 		Debug.Log("Networking class initiated!");
 		//connectManually();
@@ -49,7 +51,7 @@ public class NetworkingController {
 		_websocket.Log.Level = LogLevel.Trace;
 		_websocket.Log.File = "D:\\somelog";
 
-		_websocket.SetCredentials(user, null, false);
+		//_websocket.SetCredentials(user, null, false);
 
 		_websocket.OnMessage += (sender, e) => {
 			Debug.Log("Server says: " + e.Data);
@@ -80,6 +82,7 @@ public class NetworkingController {
 		Debug.Log("Connecting...");
 		_websocket.Connect();
 		//ws.ConnectAsync();
+		playerName = user;
 		Debug.Log("Connection isAlive : " + _websocket.IsAlive);
 		Debug.Log("Connection Status : " + _websocket.ReadyState);
 	}

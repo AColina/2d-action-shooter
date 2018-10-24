@@ -16,7 +16,7 @@
 
 package com.actionshooter.server.unitysocket;
 
-import com.actionshooter.server.core.SessionRegistry;
+import com.actionshooter.server.controller.UserController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +26,6 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-
-import java.io.IOException;
 
 /**
  * Handle connections from Unity by implementing a Spring
@@ -42,10 +40,12 @@ public class UnitySocketWebSocketHandler extends TextWebSocketHandler {
     private static final Logger LOGGER = LoggerFactory.getLogger("UnitySocketWebSocketHandler");
 
     private final UnitySocketService unitySocketService;
+    private final UserController userController;
 
     @Autowired
-    public UnitySocketWebSocketHandler(UnitySocketService unitySocketService) {
+    public UnitySocketWebSocketHandler(UnitySocketService unitySocketService, UserController userController) {
         this.unitySocketService = unitySocketService;
+        this.userController = userController;
     }
 
     @Override
@@ -60,35 +60,13 @@ public class UnitySocketWebSocketHandler extends TextWebSocketHandler {
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         LOGGER.warn("Connection Established.");
         LOGGER.warn("User: " + session.getId());
-        SessionRegistry registry = SessionRegistry.getSessionRegistry();
-        registry.put(session);
-        if (registry.size() > 1)
-            registry.forEach((k, v) -> {
-                if (!k.equals(session.getId())) {
-//                    try {
-//                        v.sendMessage(null);
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-                }
-            });
+        userController.onConnect(session);
     }
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-        SessionRegistry registry = SessionRegistry.getSessionRegistry();
-        registry.remove(session);
         LOGGER.warn("Connection Closed. Status: " + status);
         LOGGER.warn("User: " + session.getId());
-
-        registry.forEach((k, v) -> {
-            if (!k.equals(session.getId())) {
-//                try {
-//                    v.sendMessage(null);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-            }
-        });
+        userController.onDisconnect(session);
     }
 }

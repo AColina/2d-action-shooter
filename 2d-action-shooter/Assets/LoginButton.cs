@@ -41,7 +41,17 @@ public class LoginButton : MonoBehaviour {
 			connectingPanel.SetActive(false);
 			popupPanel.SetActive(true);
 		} else {
-			SceneManager.LoadScene("FriendsListScene", LoadSceneMode.Single);
+			networking.sendRequest(new PlayerNameRequest(username.text));
+			SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
+		}
+	}
+	
+	public class PlayerNameRequest : ClientRequest {
+		public string name;
+
+		public PlayerNameRequest(string name) {
+			type = "PLAYERNAME";
+			this.name = name;
 		}
 	}
 }

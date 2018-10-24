@@ -13,7 +13,7 @@ public class CheckGround : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        print(collider.gameObject.name);
+        Debug.Log(collider.gameObject.name);
         playerController.InGround = collider.gameObject.tag == "Ground";
     }
 

@@ -1,8 +1,8 @@
 package com.actionshooter.server.unitysocket;
 
-import com.actionshooter.server.model.ClientEvent;
-import com.actionshooter.server.model.request.ClientRequest;
-import com.actionshooter.server.model.response.ClientResponse;
+import com.actionshooter.server.core.ClientEvent;
+import com.actionshooter.server.core.model.request.ClientRequest;
+import com.actionshooter.server.core.model.response.ClientResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

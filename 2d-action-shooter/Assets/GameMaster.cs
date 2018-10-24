@@ -37,10 +37,8 @@ public class GameMaster : MonoBehaviour {
 		}
 	}
 
-	public static NetworkingController getNetworkingController() {
-		if (INSTANCE.networking == null) {
-			INSTANCE.networking = new NetworkingController();
-		}
-		return INSTANCE.networking;
+	public static NetworkingController getNetworkingController()
+	{
+		return INSTANCE.networking ?? (INSTANCE.networking = new NetworkingController());
 	}
 }
