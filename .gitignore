@@ -10,6 +10,8 @@ target/
 /2d-action-shooter/[Oo]bj/
 /2d-action-shooter/[Bb]uild/
 /2d-action-shooter/[Bb]uilds/
+/2d-action-shooter/Packages/
+/2d-action-shooter/Build Versions/
 /2d-action-shooter/Assets/AssetStoreTools*
 sysinfo.txt
 *.stackdump
